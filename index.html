@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -25,9 +26,12 @@
             --header-row: calc(var(--header-height) / 2);
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
@@ -45,29 +49,149 @@
             flex-direction: column;
             padding: 15px;
             overflow-y: auto;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.08);
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08);
             z-index: 20;
         }
 
-        .panel-title { font-size: 18px; font-weight: bold; color: var(--primary-dark); margin-bottom: 12px; border-bottom: none; padding-bottom: 6px; }
-        .config-box { background: #fff; border: 1px solid #ddd; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; }
-        .form-row { display:flex; align-items:center; margin-bottom:8px; }
-        .form-row label { width:90px; color:#555; font-weight:600; }
-        .form-row input[type="number"] { width:60px; padding:4px; text-align:center; border:1px solid #ccc; border-radius:4px; }
-        .form-row select { padding:4px; border-radius:4px; border:1px solid #ccc; }
+        .panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            border-bottom: none;
+            padding-bottom: 6px;
+        }
 
-        .input-area { flex:1; display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:200px; gap:10px; padding-bottom:20px; align-content:start; }
-        textarea.data-frame { width:100%; height:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:12px; resize:none; font-family:monospace; background:#fff; line-height:1.4; }
-        textarea.data-frame:focus { border-color:var(--primary-blue); background:#fafdff; outline:none; }
+        .config-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
 
-        .input-frame { display:flex; flex-direction:column; gap:6px; }
-        .frame-controls { display:flex; align-items:center; gap:6px; justify-content:space-between; }
-        .frame-controls .left { display:flex; align-items:center; gap:8px; }
-        .layer-badge { display:inline-block; background:#f0f2f5; border:1px solid #ddd; padding:2px 6px; border-radius:4px; font-size:12px; color:#333; min-width:40px; text-align:center; }
-        .group-name { color:#c0392b; font-weight:700; font-size:12px; margin-left:6px; white-space:nowrap; max-width:160px; overflow:hidden; text-overflow:ellipsis; }
-        .frame-btn { background:#fff; border:1px solid #ccc; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px; }
-        .frame-btn.small { padding:2px 6px; font-size:11px; }
-        .clear-all-btn { background:#fff; border:1px solid #e57373; color:#c0392b; padding:6px 10px; border-radius:4px; cursor:pointer; font-weight:700; font-size:13px; }
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .form-row label {
+            width: 90px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-row input[type="number"] {
+            width: 60px;
+            padding: 4px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-row select {
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .input-area {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: 200px;
+            gap: 10px;
+            padding-bottom: 20px;
+            align-content: start;
+        }
+
+        textarea.data-frame {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            resize: none;
+            font-family: monospace;
+            background: #fff;
+            line-height: 1.4;
+        }
+
+        textarea.data-frame:focus {
+            border-color: var(--primary-blue);
+            background: #fafdff;
+            outline: none;
+        }
+
+        .input-frame {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .frame-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: space-between;
+        }
+
+        .frame-controls .left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .layer-badge {
+            display: inline-block;
+            background: #f0f2f5;
+            border: 1px solid #ddd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #333;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .group-name {
+            color: #c0392b;
+            font-weight: 700;
+            font-size: 12px;
+            margin-left: 6px;
+            white-space: nowrap;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .frame-btn {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .frame-btn.small {
+            padding: 2px 6px;
+            font-size: 11px;
+        }
+
+        .clear-all-btn {
+            background: #fff;
+            border: 1px solid #e57373;
+            color: #c0392b;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+        }
 
         .right-panel {
             width: 60%;
@@ -93,9 +217,12 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
         }
-        .print-btn:active { transform: translateY(1px); }
+
+        .print-btn:active {
+            transform: translateY(1px);
+        }
 
         .a4-sheet {
             width: min(210mm, calc(100% - 40px));
@@ -103,15 +230,29 @@
             background: white;
             margin: 0 auto 30px auto;
             padding: calc(var(--header-height) + 8mm) var(--a4-side-margin) calc(var(--footer-height) + 8mm) var(--a4-side-margin);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
             position: relative;
             text-align: left;
             overflow: visible;
         }
 
-        table.result-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:10px; table-layout:fixed; word-break:break-word; background:white; }
-        table.result-table thead { display: table-header-group; }
-        table.result-table tfoot { display: table-footer-group; } 
+        table.result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 10px;
+            table-layout: fixed;
+            word-break: break-word;
+            background: white;
+        }
+
+        table.result-table thead {
+            display: table-header-group;
+        }
+
+        table.result-table tfoot {
+            display: table-footer-group;
+        }
 
         table.result-table thead tr.title-row th {
             padding-top: calc(var(--header-row) * 0.6);
@@ -123,6 +264,7 @@
             color: var(--primary-dark);
             background: transparent;
         }
+
         table.result-table thead tr.date-row th {
             padding-top: calc(var(--header-row) * 0.3);
             padding-bottom: calc(var(--header-row) * 0.7);
@@ -133,117 +275,372 @@
             color: #666;
             background: transparent;
         }
+
         table.result-table thead tr.colhead-row th {
-            padding:6px 4px;
-            text-align:center;
-            font-weight:700;
-            font-size:13px;
+            padding: 6px 4px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13px;
             color: var(--primary-dark);
-            border-bottom:none;
+            border-bottom: none;
             background: #f1ee09e2;
         }
 
         table.result-table tfoot tr td {
-            padding:6px 8px;
-            text-align:center;
-            font-size:11px;
-            color:#555;
-            border-top:1px solid #ddd;
-            background:#fff;
+            padding: 6px 8px;
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            background: #fff;
         }
 
-        table.result-table td { padding:6px 4px; border-bottom:none; vertical-align:middle; color:#333; background: #fff; }
+        table.result-table td {
+            padding: 6px 4px;
+            border-bottom: none;
+            vertical-align: middle;
+            color: #333;
+            background: #fff;
+        }
 
-        tr.detail-row td { padding:0 8px 12px 8px; border-bottom:none; background-color:inherit; }
-        .school-body { display:block; page-break-inside:avoid; break-inside:avoid; -webkit-column-break-inside:avoid; padding-top:6px; padding-bottom:6px; }
+        tr.detail-row td {
+            padding: 0 8px 12px 8px;
+            border-bottom: none;
+            background-color: inherit;
+        }
 
-        td.rank-cell { position:relative; padding:0; text-align:center; height:1px; }
-        .rank-content-wrapper { width:100%; height:100%; display:flex; align-items:center; justify-content:center; min-height:35px; }
-        .rank-num { font-size:18px; font-weight:bold; z-index:2; position:relative; }
-        .color-bar { position:absolute; left:0; top:0; bottom:0; width:5px; display:none; }
+        .school-body {
+            display: block;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
 
-        tr.rank-1, tr.rank-1+.detail-row { background-color:var(--gold-bg); }
-        tr.rank-1 .color-bar { display:block; background:var(--gold-bar); }
-        tr.rank-1 .rank-num { color:var(--gold-text); font-size:24px; text-shadow:0 1px 0 rgba(255,255,255,0.8); }
-        tr.rank-1 .school-name { color:var(--gold-text); font-size:18px; }
+        td.rank-cell {
+            position: relative;
+            padding: 0;
+            text-align: center;
+            height: 1px;
+        }
 
-        tr.rank-2, tr.rank-2+.detail-row { background-color:var(--silver-bg); }
-        tr.rank-2 .color-bar { display:block; background:var(--silver-bar); }
-        tr.rank-2 .rank-num { color:var(--silver-text); font-size:20px; }
-        tr.rank-2 .school-name { color:var(--silver-text); font-size:16px; }
+        .rank-content-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 35px;
+        }
 
-        tr.rank-3, tr.rank-3+.detail-row { background-color:var(--bronze-bg); }
-        tr.rank-3 .color-bar { display:block; background:var(--bronze-bar); }
-        tr.rank-3 .rank-num { color:var(--bronze-text); font-size:20px; }
-        tr.rank-3 .school-name { color:var(--bronze-text); font-size:16px; }
+        .rank-num {
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 2;
+            position: relative;
+        }
 
-        .school-name { font-weight:800; font-size:15px; margin-bottom:2px; padding-left:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .ineligible-text { color:#c0392b; font-size:10px; font-weight:bold; padding-left:5px; }
-        .ineligible-row, .ineligible-row+.detail-row { opacity:0.6; background:#fafafa; }
-        .total-score { font-size:16px; font-weight:800; color:#333; text-align:center; }
-        .score-val { font-size:12px; color:#555; text-align:center; }
+        .color-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            display: none;
+        }
 
-        .student-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:5px; width:100%; margin-top:4px; }
-        .student-cell { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.06); border-radius:4px; padding:3px 5px; display:flex; flex-direction:column; justify-content:center; min-height:38px; }
-        .st-name { font-size:11px; font-weight:bold; color:#222; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.2; }
-        .st-info-row { display:flex; align-items:center; justify-content:space-between; font-size:10px; width:100%; line-height:1.2; }
-        .st-left-group { display:flex; align-items:center; overflow:hidden; white-space:nowrap; }
-        .st-cat { color:#666; margin-right:3px; max-width:50px; overflow:hidden; text-overflow:ellipsis; }
-        .st-rank { color:#333; font-weight:800; }
-        .score-badge { padding:0px 3px; border-radius:3px; font-weight:bold; font-size:9px; min-width:16px; text-align:center; flex-shrink:0; }
-        .badge-gold { background-color:#ffe082; color:#6f4e00; border:1px solid #ffd54f; }
-        .badge-silver { background-color:#e0e0e0; color:#424242; border:1px solid #bdbdbd; }
-        .badge-bronze { background-color:#ffccbc; color:#bf360c; border:1px solid #ffab91; }
-        .badge-normal { background-color:#e3f2fd; color:#1565c0; border:1px solid #90caf9; }
-        .dimmed { opacity:0.5; }
-        .dimmed .score-badge { visibility:hidden; }
+        tr.rank-1,
+        tr.rank-1+.detail-row {
+            background-color: var(--gold-bg);
+        }
+
+        tr.rank-1 .color-bar {
+            display: block;
+            background: var(--gold-bar);
+        }
+
+        tr.rank-1 .rank-num {
+            color: var(--gold-text);
+            font-size: 24px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        tr.rank-1 .school-name {
+            color: var(--gold-text);
+            font-size: 18px;
+        }
+
+        tr.rank-2,
+        tr.rank-2+.detail-row {
+            background-color: var(--silver-bg);
+        }
+
+        tr.rank-2 .color-bar {
+            display: block;
+            background: var(--silver-bar);
+        }
+
+        tr.rank-2 .rank-num {
+            color: var(--silver-text);
+            font-size: 20px;
+        }
+
+        tr.rank-2 .school-name {
+            color: var(--silver-text);
+            font-size: 16px;
+        }
+
+        tr.rank-3,
+        tr.rank-3+.detail-row {
+            background-color: var(--bronze-bg);
+        }
+
+        tr.rank-3 .color-bar {
+            display: block;
+            background: var(--bronze-bar);
+        }
+
+        tr.rank-3 .rank-num {
+            color: var(--bronze-text);
+            font-size: 20px;
+        }
+
+        tr.rank-3 .school-name {
+            color: var(--bronze-text);
+            font-size: 16px;
+        }
+
+        .school-name {
+            font-weight: 800;
+            font-size: 15px;
+            margin-bottom: 2px;
+            padding-left: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ineligible-text {
+            color: #c0392b;
+            font-size: 10px;
+            font-weight: bold;
+            padding-left: 5px;
+        }
+
+        .ineligible-row,
+        .ineligible-row+.detail-row {
+            opacity: 0.6;
+            background: #fafafa;
+        }
+
+        .total-score {
+            font-size: 16px;
+            font-weight: 800;
+            color: #333;
+            text-align: center;
+        }
+
+        .score-val {
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .student-cell {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+            padding: 3px 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 38px;
+        }
+
+        .st-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .st-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 10px;
+            width: 100%;
+            line-height: 1.2;
+        }
+
+        .st-left-group {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .st-cat {
+            color: #666;
+            margin-right: 3px;
+            max-width: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .st-rank {
+            color: #333;
+            font-weight: 800;
+        }
+
+        .score-badge {
+            padding: 0px 3px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 9px;
+            min-width: 16px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .badge-gold {
+            background-color: #ffe082;
+            color: #6f4e00;
+            border: 1px solid #ffd54f;
+        }
+
+        .badge-silver {
+            background-color: #e0e0e0;
+            color: #424242;
+            border: 1px solid #bdbdbd;
+        }
+
+        .badge-bronze {
+            background-color: #ffccbc;
+            color: #bf360c;
+            border: 1px solid #ffab91;
+        }
+
+        .badge-normal {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #90caf9;
+        }
+
+        .dimmed {
+            opacity: 0.5;
+        }
+
+        .dimmed .score-badge {
+            visibility: hidden;
+        }
 
         @media print {
-            @page { size:A4; margin:5mm; }
 
-            html, body { background:white; height:auto !important; display:block; overflow:visible !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+            /* 1. 這裡控制每一頁的邊距：上方統一設為 9mm */
+            @page {
+                size: A4;
+                margin: 9mm 5mm 5mm 5mm;
+            }
 
-            .left-panel, .preview-actions, .print-btn { display: none !important; }
+            /* 隱藏不必要的元素 */
+            .left-panel,
+            .preview-actions,
+            .print-btn {
+                display: none !important;
+            }
 
-            .right-panel { width:100%; display:block; padding:0; margin:0; background:white; overflow:visible !important; }
+            html,
+            body,
+            .right-panel {
+                width: 100%;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white;
+                overflow: visible !important;
+            }
 
             .a4-sheet {
                 width: 100% !important;
-                margin: 0;
+                margin: 0 !important;
                 box-shadow: none !important;
-                min-height: auto !important;
-                padding: 4mm var(--a4-side-margin) 4mm var(--a4-side-margin) !important;
+                padding-top: 0 !important;
+                padding-bottom: 4mm !important;
+                padding-left: 4mm !important;
+                padding-right: 4mm !important;
                 overflow: visible !important;
-                page-break-after: always;
             }
 
-            table.result-table thead tr.title-row th,
-            table.result-table thead tr.date-row th {
-                padding-top: calc(var(--header-row) * 0.6) !important;
-                padding-bottom: calc(var(--header-row) * 0.4) !important;
-                vertical-align: middle !important;
-                text-align: center !important;
-                font-weight: 700 !important;
-                color: var(--primary-dark) !important;
-                background: transparent !important;
+            tbody.school-block {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                -webkit-column-break-inside: avoid;
+                -moz-column-break-inside: avoid;
             }
 
-            tbody.school-block { page-break-inside: avoid; break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid; }
-            .school-body { page-break-inside: avoid; break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid; }
+            .school-body {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                -webkit-column-break-inside: avoid;
+                -moz-column-break-inside: avoid;
+            }
 
-            tbody.page-break-before { display: table-row-group !important; page-break-before: always !important; break-before: page !important; -webkit-column-break-before: always !important; -moz-column-break-before: always !important; }
-
-            tr.ineligible-row, tr.ineligible-row+.detail-row { display: none !important; }
+            tbody.page-break-before {
+                display: table-row-group !important;
+                page-break-before: always !important;
+                break-before: page !important;
+                -webkit-column-break-before: always !important;
+                -moz-column-break-before: always !important;
+            }
+            /*
+            tr.ineligible-row,
+            tr.ineligible-row+.detail-row {
+                display: none !important;
+            }*/
         }
 
         @media (max-width: 900px) {
-            .left-panel { width: 100%; height: 40vh; overflow-y:auto; }
-            .right-panel { width: 100%; padding: 12px; }
-            .input-area { grid-template-columns: 1fr; grid-auto-rows: 160px; }
-            .a4-sheet { width: 100%; min-height: auto; padding: 12mm; box-shadow: none; margin-bottom: 16px; }
+            .left-panel {
+                width: 100%;
+                height: 40vh;
+                overflow-y: auto;
+            }
+
+            .right-panel {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .input-area {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 160px;
+            }
+
+            .a4-sheet {
+                width: 100%;
+                min-height: auto;
+                padding: 12mm;
+                box-shadow: none;
+                margin-bottom: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="left-panel">
         <div class="panel-title">團體獎設定</div>
@@ -255,10 +652,14 @@
                 <input type="number" id="cfg_threshold" value="3" onchange="recalc()" />
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:5px; margin-top:5px;">
-                <div class="form-row" style="width:48%"><label style="width:50px">冠軍</label><input type="number" id="p1" value="20" onchange="recalc()" /></div>
-                <div class="form-row" style="width:48%"><label style="width:50px">亞軍</label><input type="number" id="p2" value="13" onchange="recalc()" /></div>
-                <div class="form-row" style="width:48%"><label style="width:50px">季軍</label><input type="number" id="p3" value="8" onchange="recalc()" /></div>
-                <div class="form-row" style="width:48%"><label style="width:50px">4-8名</label><input type="number" id="p4" value="5" onchange="recalc()" /></div>
+                <div class="form-row" style="width:48%"><label style="width:50px">冠軍</label><input type="number" id="p1"
+                        value="20" onchange="recalc()" /></div>
+                <div class="form-row" style="width:48%"><label style="width:50px">亞軍</label><input type="number" id="p2"
+                        value="13" onchange="recalc()" /></div>
+                <div class="form-row" style="width:48%"><label style="width:50px">季軍</label><input type="number" id="p3"
+                        value="8" onchange="recalc()" /></div>
+                <div class="form-row" style="width:48%"><label style="width:50px">4-8名</label><input type="number"
+                        id="p4" value="5" onchange="recalc()" /></div>
             </div>
         </div>
 
@@ -324,11 +725,15 @@
                 </thead>
 
                 <tbody id="tableBody">
-                    <tr><td colspan="5" style="text-align:center; padding:50px; color:#bbb;">(等待輸入)</td></tr>
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:50px; color:#bbb;">(等待輸入)</td>
+                    </tr>
                 </tbody>
 
                 <tfoot>
-                    <tr><td colspan="5" id="tfootRules">規則載入中...</td></tr>
+                    <tr>
+                        <td colspan="5" id="tfootRules">規則載入中...</td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
@@ -599,7 +1004,7 @@
 
             (function setPdfFilename() {
                 let fileTitle = (theadTitle.innerText || '學校團體獎').replace(/[\/\\:?*"<>|]/g, '_').trim();
-                if (fileTitle.length > 120) fileTitle = fileTitle.slice(0,120);
+                if (fileTitle.length > 120) fileTitle = fileTitle.slice(0, 120);
                 document.title = fileTitle;
                 window.onbeforeprint = () => { document.title = fileTitle; };
             })();
@@ -620,17 +1025,17 @@
                 const rankScore = scoreList.reduce((acc, cur) => acc + cur.p, 0);
                 let partScore = (mode === 'all' || incPart) ? partCount : 0;
                 const totalScore = rankScore + partScore;
-                const bestRanks = s.students.map(st => st.rank).sort((a,b)=>a-b);
+                const bestRanks = s.students.map(st => st.rank).sort((a, b) => a - b);
                 return { ...s, eligible, totalScore, rankScore, partScore, partCount, usedStudents: scoreList, bestRanks };
             });
 
-            rankList.sort((a,b) => {
+            rankList.sort((a, b) => {
                 if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
                 if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
                 if (b.rankScore !== a.rankScore) return b.rankScore - a.rankScore;
                 if (b.partScore !== a.partScore) return b.partScore - a.partScore;
                 const len = Math.max(a.bestRanks.length, b.bestRanks.length);
-                for (let k=0;k<len;k++){
+                for (let k = 0; k < len; k++) {
                     const ra = a.bestRanks[k] || 999;
                     const rb = b.bestRanks[k] || 999;
                     if (ra !== rb) return ra - rb;
@@ -710,11 +1115,11 @@
         }
 
         function escapeHtml(text) {
-            const map = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' };
-            return String(text).replace(/[&<>"']/g, function(m){ return map[m]; });
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
         }
 
-        function preparePrintAvoidSplit(){
+        function preparePrintAvoidSplit() {
             document.querySelectorAll('tbody.page-break-before').forEach(tb => tb.classList.remove('page-break-before'));
             document.querySelectorAll('tbody.too-tall').forEach(tb => tb.classList.remove('too-tall'));
 
@@ -752,8 +1157,8 @@
         }
 
         function onBeforePrintHandler() {
-            try { recalc(); } catch(e) { /* ignore */ }
-            try { preparePrintAvoidSplit(); } catch(e) { console.warn('preparePrintAvoidSplit failed', e); }
+            try { recalc(); } catch (e) { /* ignore */ }
+            try { preparePrintAvoidSplit(); } catch (e) { console.warn('preparePrintAvoidSplit failed', e); }
         }
         function onAfterPrintHandler() {
             document.querySelectorAll('tbody.page-break-before').forEach(tb => tb.classList.remove('page-break-before'));
@@ -762,7 +1167,7 @@
 
         if (window.matchMedia) {
             const mql = window.matchMedia('print');
-            mql.addListener(function(m){
+            mql.addListener(function (m) {
                 if (m.matches) onBeforePrintHandler();
                 else onAfterPrintHandler();
             });
@@ -776,4 +1181,5 @@
         }
     </script>
 </body>
+
 </html>
