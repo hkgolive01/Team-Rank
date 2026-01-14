@@ -94,14 +94,11 @@
             border: 1px solid #ccc;
         }
 
-        /* === 修正：輸入區改為 Grid 2欄佈局 === */
         .input-area {
             flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            /* 左右各一 */
             grid-auto-rows: 200px;
-            /* 固定高度 */
             gap: 10px;
             padding-bottom: 20px;
             align-content: start;
@@ -141,7 +138,7 @@
             min-height: 297mm;
             background: white;
             margin: 0 auto 30px auto;
-            padding: 15mm 15mm 25mm 15mm;
+            padding: 15mm 10mm 25mm 10mm; /* 左右邊距稍微縮小以容納6欄 */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             text-align: left;
@@ -149,9 +146,9 @@
 
         .header-section {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             border-bottom: none;
-            padding-bottom: 15px;
+            padding-bottom: 5px;
         }
 
         .main-title {
@@ -165,7 +162,7 @@
         .sub-date {
             font-size: 14px;
             color: #666;
-            margin-top: 8px;
+            margin-top: 5px;
             font-weight: 500;
         }
 
@@ -176,37 +173,45 @@
             font-size: 13px;
             margin-bottom: 10px;
             table-layout: fixed;
-            /* 固定佈局，確保欄位寬度穩定 */
         }
 
         table.result-table thead th {
             background: var(--primary-dark);
             color: #fff;
-            padding: 10px;
-            text-align: left;
+            padding: 6px 4px;
+            text-align: center;
             font-weight: normal;
             border-bottom: 2px solid #000;
+            font-size: 12px;
+        }
+        
+        table.result-table thead th:nth-child(2) {
+            text-align: left;
+            padding-left: 8px;
         }
 
         table.result-table td {
-            padding: 12px 10px;
+            padding: 6px 4px;
             border-bottom: 1px solid #eee;
             vertical-align: middle;
-            /* 垂直置中 */
             color: #333;
-            background-clip: padding-box;
         }
 
-        /* === 修正：排名欄位與色條全高 === */
+        tr.school-row {
+            border-top: 2px solid #ddd;
+        }
+        
+        tr.detail-row td {
+            padding: 0 8px 12px 8px; 
+            border-bottom: 2px solid #bbb;
+            background-color: inherit;
+        }
+
         td.rank-cell {
             position: relative;
-            /* 關鍵：讓絕對定位的色條以此為基準 */
             padding: 0;
-            /* 移除内邊距，讓色條貼邊 */
-            vertical-align: middle;
             text-align: center;
-            height: 1px;
-            /* 讓 td 高度由内容決定，但允許子元素 height:100% 參考 (視瀏覽器而定，這裡主要靠 absolute stretch) */
+            height: 1px; 
         }
 
         .rank-content-wrapper {
@@ -215,8 +220,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 40px;
-            /* 確保有最小高度 */
+            min-height: 35px;
         }
 
         .rank-num {
@@ -226,152 +230,160 @@
             position: relative;
         }
 
-        /* 全高色條 */
         .color-bar {
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            /* 上下都 0，強制拉伸至全高 */
-            width: 8px;
+            width: 5px;
             display: none;
         }
 
         /* 前三名樣式 */
-        tr.rank-1 {
-            background-color: var(--gold-bg);
-        }
+        tr.rank-1, tr.rank-1 + tr.detail-row { background-color: var(--gold-bg); }
+        tr.rank-1 .color-bar { display: block; background: var(--gold-bar); }
+        tr.rank-1 .rank-num { color: var(--gold-text); font-size: 24px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); }
+        tr.rank-1 .school-name { color: var(--gold-text); font-size: 18px; }
 
-        tr.rank-1 .color-bar {
-            display: block;
-            background: var(--gold-bar);
-        }
+        tr.rank-2, tr.rank-2 + tr.detail-row { background-color: var(--silver-bg); }
+        tr.rank-2 .color-bar { display: block; background: var(--silver-bar); }
+        tr.rank-2 .rank-num { color: var(--silver-text); font-size: 20px; }
+        tr.rank-2 .school-name { color: var(--silver-text); font-size: 16px; }
 
-        tr.rank-1 .rank-num {
-            color: var(--gold-text);
-            font-size: 24px;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        tr.rank-1 .school-name {
-            color: var(--gold-text);
-            font-size: 18px;
-        }
-
-        tr.rank-2 {
-            background-color: var(--silver-bg);
-        }
-
-        tr.rank-2 .color-bar {
-            display: block;
-            background: var(--silver-bar);
-        }
-
-        tr.rank-2 .rank-num {
-            color: var(--silver-text);
-            font-size: 20px;
-        }
-
-        tr.rank-2 .school-name {
-            color: var(--silver-text);
-            font-size: 16px;
-        }
-
-        tr.rank-3 {
-            background-color: var(--bronze-bg);
-        }
-
-        tr.rank-3 .color-bar {
-            display: block;
-            background: var(--bronze-bar);
-        }
-
-        tr.rank-3 .rank-num {
-            color: var(--bronze-text);
-            font-size: 20px;
-        }
-
-        tr.rank-3 .school-name {
-            color: var(--bronze-text);
-            font-size: 16px;
-        }
+        tr.rank-3, tr.rank-3 + tr.detail-row { background-color: var(--bronze-bg); }
+        tr.rank-3 .color-bar { display: block; background: var(--bronze-bar); }
+        tr.rank-3 .rank-num { color: var(--bronze-text); font-size: 20px; }
+        tr.rank-3 .school-name { color: var(--bronze-text); font-size: 16px; }
 
         .school-name {
             font-weight: 800;
             font-size: 15px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            padding-left: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .ineligible-text {
             color: #c0392b;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
+            padding-left: 5px;
         }
 
-        .ineligible-row {
-            opacity: 0.5;
+        .ineligible-row, .ineligible-row + tr.detail-row {
+            opacity: 0.6;
             background: #fafafa;
         }
 
         .total-score {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 800;
             color: #333;
+            text-align: center;
         }
-
-        .sub-score {
-            font-size: 11px;
-            color: #666;
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-
-        .student-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .student-item {
+        
+        .score-val {
             font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* === 學員 Grid 佈局 (改為6欄) === */
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6欄 */
+            gap: 5px; 
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .student-cell {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 3px 5px; /* 內距縮小 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 38px;
+        }
+        
+        /* 名字獨立一行 */
+        .st-name {
+            font-size: 11px; /* 稍微縮小字體以適應窄欄 */
+            font-weight: bold;
+            color: #222;
             margin-bottom: 2px;
-            padding: 3px 0;
-            border-bottom: 1px dashed #e0e0e0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        /* 第二行容器：左右撐開 */
+        .st-info-row {
             display: flex;
             align-items: center;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .student-item:last-child {
-            border-bottom: none;
-        }
-
-        .st-name {
-            font-weight: bold;
-            width: 70px;
-            color: #222;
-            flex-shrink: 0;
-        }
-
-        .st-info {
-            color: #555;
-            flex: 1;
-            font-size: 11px;
-        }
-
-        .st-score {
-            background: #eee;
-            color: #333;
-            padding: 1px 6px;
-            border-radius: 4px;
+            justify-content: space-between; /* 關鍵：左右分佈 */
             font-size: 10px;
-            font-weight: bold;
-            margin-left: 5px;
+            width: 100%;
+            line-height: 1.2;
         }
 
-        .dimmed {
-            opacity: 0.4;
+        /* 左側：組別 + 名次 */
+        .st-left-group {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .st-cat {
+            color: #666;
+            margin-right: 3px;
+            max-width: 50px; /* 限制組別寬度，避免擠壓加分 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .st-rank {
+            color: #333;
+            font-weight: 800;
+        }
+
+        /* 右側：加分標籤 */
+        .score-badge {
+            padding: 0px 3px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 9px;
+            min-width: 16px;
+            text-align: center;
+            flex-shrink: 0; /* 防止被壓縮 */
+        }
+
+        .badge-gold { background-color: #ffe082; color: #6f4e00; border: 1px solid #ffd54f; }
+        .badge-silver { background-color: #e0e0e0; color: #424242; border: 1px solid #bdbdbd; }
+        .badge-bronze { background-color: #ffccbc; color: #bf360c; border: 1px solid #ffab91; }
+        .badge-normal { background-color: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+
+        .dimmed { opacity: 0.5; }
+        .dimmed .score-badge { visibility: hidden; }
+
+        @media print {
+            .student-grid {
+                display: grid !important;
+                grid-template-columns: repeat(6, 1fr) !important;
+            }
+            .student-cell {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+            .a4-sheet {
+                padding: 10mm;
+            }
         }
 
         .fixed-footer {
@@ -421,7 +433,7 @@
         @media print {
             @page {
                 size: A4;
-                margin: 10mm;
+                margin: 5mm; /* 極窄邊距 */
             }
 
             body {
@@ -457,12 +469,12 @@
                 display: table-header-group;
             }
 
-            tr {
-                break-inside: auto;
+            tr.school-row {
+                break-after: avoid;
             }
-
-            .student-item {
-                break-inside: avoid;
+            tr.detail-row {
+                break-before: avoid;
+                break-inside: auto;
             }
 
             .fixed-footer {
@@ -475,7 +487,6 @@
                 height: 15mm;
             }
 
-            /* 列印時強制色條高度 */
             .color-bar {
                 bottom: 0 !important;
                 height: auto !important;
@@ -542,15 +553,16 @@
             <table class="result-table">
                 <thead>
                     <tr>
-                        <th width="8%" style="text-align:center">排名</th>
-                        <th width="22%">學校</th>
-                        <th width="15%">總分</th>
-                        <th width="55%">學員明細</th>
+                        <th width="8%">排名</th>
+                        <th width="32%">學校</th>
+                        <th width="20%">總分</th>
+                        <th width="20%">名次分</th>
+                        <th width="20%">參與分</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
                     <tr>
-                        <td colspan="4" style="text-align:center; padding:50px; color:#bbb;">(等待輸入)</td>
+                        <td colspan="5" style="text-align:center; padding:50px; color:#bbb;">(等待輸入)</td>
                     </tr>
                 </tbody>
             </table>
@@ -561,7 +573,7 @@
         </div>
     </div>
 
-    <button class="print-fab" onclick="window.print()" title="列印 (記得勾選背景圖形)">🖨️</button>
+    <button class="print-fab" onclick="window.print()" title="列印">🖨️</button>
 
     <script>
         const container = document.getElementById('inputContainer');
@@ -616,7 +628,7 @@
 
             const schools = {};
             let globalTitle = "";
-            let globalDate = "";
+            let uniqueDates = new Set();
 
             document.querySelectorAll('textarea').forEach(ta => {
                 const txt = ta.value.trim();
@@ -625,7 +637,7 @@
                 if (lines.length < 4) return;
 
                 if (!globalTitle && lines[0]) globalTitle = lines[0];
-                if (!globalDate && lines[2]) globalDate = lines[2];
+                if (lines[2]) uniqueDates.add(lines[2]);
 
                 const cat = lines[1];
 
@@ -658,7 +670,9 @@
                 titleEl.innerText = "學校團體獎公佈表";
                 titleEl.style.color = "#ccc";
             }
-            document.getElementById('displayDate').innerText = globalDate ? "日期：" + globalDate : "";
+            
+            const dateStr = uniqueDates.size > 0 ? Array.from(uniqueDates).join(' / ') : '--';
+            document.getElementById('displayDate').innerText = "日期：" + dateStr;
 
             let rankList = Object.values(schools).map(s => {
                 const partCount = s.uniqueParts.size;
@@ -693,27 +707,47 @@
 
             const tbody = document.getElementById('tableBody');
             if (rankList.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:50px;color:#bbb">請輸入資料</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:50px;color:#bbb">請輸入資料</td></tr>';
                 return;
             }
 
             tbody.innerHTML = rankList.map((sch, idx) => {
                 let rankIdx = idx + 1;
-                let trClass = '';
+                let trClass = 'school-row';
                 let rankNum = rankIdx;
 
                 if (!sch.eligible) {
-                    trClass = 'ineligible-row';
+                    trClass += ' ineligible-row';
                     rankNum = '-';
-                } else if (rankIdx === 1) trClass = 'rank-1';
-                else if (rankIdx === 2) trClass = 'rank-2';
-                else if (rankIdx === 3) trClass = 'rank-3';
+                } else if (rankIdx === 1) trClass += ' rank-1';
+                else if (rankIdx === 2) trClass += ' rank-2';
+                else if (rankIdx === 3) trClass += ' rank-3';
 
+                // 生成學員卡片 HTML (6欄版)
                 const stuHtml = sch.students.map(stu => {
                     const isUsed = sch.usedStudents.includes(stu);
                     const cssClass = isUsed ? '' : 'dimmed';
-                    const scoreBadge = stu.p > 0 ? `<span class="st-score">+${stu.p}</span>` : '';
-                    return `<li class="student-item ${cssClass}"><span class="st-name">${stu.name}</span><span class="st-info">${stu.cat} (第${stu.rank}名)</span>${scoreBadge}</li>`;
+                    
+                    let badgeClass = 'badge-normal';
+                    if (stu.rank === 1) badgeClass = 'badge-gold';
+                    else if (stu.rank === 2) badgeClass = 'badge-silver';
+                    else if (stu.rank === 3) badgeClass = 'badge-bronze';
+
+                    const scoreBadge = stu.p > 0 
+                        ? `<span class="score-badge ${badgeClass}">+${stu.p}</span>` 
+                        : '<span style="width:16px;"></span>'; // 佔位，保持高度一致
+                    
+                    return `
+                    <div class="student-cell ${cssClass}">
+                        <div class="st-name">${stu.name}</div>
+                        <div class="st-info-row">
+                            <div class="st-left-group">
+                                <span class="st-cat">${stu.cat}</span>
+                                <span class="st-rank">#${stu.rank}</span>
+                            </div>
+                            ${scoreBadge}
+                        </div>
+                    </div>`;
                 }).join('');
 
                 return `
@@ -728,11 +762,16 @@
                         <div class="school-name">${sch.name}</div>
                         ${!sch.eligible ? '<span class="ineligible-text">人數不足</span>' : ''}
                     </td>
-                    <td>
-                        <div class="total-score">${sch.totalScore}</div>
-                        <div class="sub-score">名次分: ${sch.rankScore}<br>參與分: ${sch.partScore} (${sch.partCount}人)</div>
+                    <td><div class="total-score">${sch.totalScore}</div></td>
+                    <td><div class="score-val">${sch.rankScore}</div></td>
+                    <td><div class="score-val">${sch.partScore} (${sch.partCount}人)</div></td>
+                </tr>
+                <tr class="detail-row">
+                    <td colspan="5">
+                        <div class="student-grid">
+                            ${stuHtml}
+                        </div>
                     </td>
-                    <td><ul class="student-list">${stuHtml}</ul></td>
                 </tr>`;
             }).join('');
         }
