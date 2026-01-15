@@ -72,7 +72,7 @@
             background: var(--active-scheme);
             color: white;
             border-color: var(--active-scheme);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .left-panel {
@@ -125,45 +125,78 @@
             border-radius: 4px;
         }
 
+        /* Checkbox style override */
+        .form-row input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 6px;
+            cursor: pointer;
+        }
+
         .form-row select {
             padding: 4px;
             border-radius: 4px;
             border: 1px solid #ccc;
         }
 
+        /* --- Score Grid Styles --- */
         .score-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 8px;
             margin-top: 8px;
         }
+
         .score-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             background: #f9f9f9;
-            padding: 4px;
-            border-radius: 4px;
+            padding: 6px 2px;
+            border-radius: 6px;
             border: 1px solid #eee;
+            transition: transform 0.1s;
+            cursor: text;
         }
+
+        .score-item:active {
+            transform: scale(0.98);
+        }
+
         .score-item label {
             width: auto;
             font-size: 10px;
-            color: #777;
+            color: #666;
             margin-bottom: 2px;
             text-align: center;
+            pointer-events: none;
         }
-        .score-item input {
+
+        .score-item input.rank-score-input {
             width: 100% !important;
-            font-size: 12px;
-            padding: 2px !important;
+            font-size: 18px !important;
+            font-weight: 800;
+            padding: 0 !important;
+            text-align: center !important;
+            border: none !important;
+            background: transparent !important;
+            outline: none !important;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .score-item input.rank-score-input:focus {
+            color: #000;
+        }
+
+        .score-item:has(input:focus) {
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         .input-area {
             flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-auto-rows: 220px; /* Slightly taller for weights */
+            grid-auto-rows: 220px;
             gap: 10px;
             padding-bottom: 20px;
             align-content: start;
@@ -234,7 +267,11 @@
             border-radius: 3px;
             color: #555;
         }
-        .weight-btn:hover { background: #eee; }
+
+        .weight-btn:hover {
+            background: #eee;
+        }
+
         .weight-btn.active {
             background: #2c3e50;
             color: #fff;
@@ -449,20 +486,66 @@
             display: none;
         }
 
-        tr.rank-1, tr.rank-1+.detail-row { background-color: var(--gold-bg); }
-        tr.rank-1 .color-bar { display: block; background: var(--gold-bar); }
-        tr.rank-1 .rank-num { color: var(--gold-text); font-size: 24px; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); }
-        tr.rank-1 .school-name { color: var(--gold-text); font-size: 18px; }
+        tr.rank-1,
+        tr.rank-1+.detail-row {
+            background-color: var(--gold-bg);
+        }
 
-        tr.rank-2, tr.rank-2+.detail-row { background-color: var(--silver-bg); }
-        tr.rank-2 .color-bar { display: block; background: var(--silver-bar); }
-        tr.rank-2 .rank-num { color: var(--silver-text); font-size: 20px; }
-        tr.rank-2 .school-name { color: var(--silver-text); font-size: 16px; }
+        tr.rank-1 .color-bar {
+            display: block;
+            background: var(--gold-bar);
+        }
 
-        tr.rank-3, tr.rank-3+.detail-row { background-color: var(--bronze-bg); }
-        tr.rank-3 .color-bar { display: block; background: var(--bronze-bar); }
-        tr.rank-3 .rank-num { color: var(--bronze-text); font-size: 20px; }
-        tr.rank-3 .school-name { color: var(--bronze-text); font-size: 16px; }
+        tr.rank-1 .rank-num {
+            color: var(--gold-text);
+            font-size: 24px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        tr.rank-1 .school-name {
+            color: var(--gold-text);
+            font-size: 18px;
+        }
+
+        tr.rank-2,
+        tr.rank-2+.detail-row {
+            background-color: var(--silver-bg);
+        }
+
+        tr.rank-2 .color-bar {
+            display: block;
+            background: var(--silver-bar);
+        }
+
+        tr.rank-2 .rank-num {
+            color: var(--silver-text);
+            font-size: 20px;
+        }
+
+        tr.rank-2 .school-name {
+            color: var(--silver-text);
+            font-size: 16px;
+        }
+
+        tr.rank-3,
+        tr.rank-3+.detail-row {
+            background-color: var(--bronze-bg);
+        }
+
+        tr.rank-3 .color-bar {
+            display: block;
+            background: var(--bronze-bar);
+        }
+
+        tr.rank-3 .rank-num {
+            color: var(--bronze-text);
+            font-size: 20px;
+        }
+
+        tr.rank-3 .school-name {
+            color: var(--bronze-text);
+            font-size: 16px;
+        }
 
         .school-name {
             font-weight: 800;
@@ -569,13 +652,37 @@
             flex-shrink: 0;
         }
 
-        .badge-gold { background-color: #ffe082; color: #6f4e00; border: 1px solid #ffd54f; }
-        .badge-silver { background-color: #e0e0e0; color: #424242; border: 1px solid #bdbdbd; }
-        .badge-bronze { background-color: #ffccbc; color: #bf360c; border: 1px solid #ffab91; }
-        .badge-normal { background-color: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+        .badge-gold {
+            background-color: #ffe082;
+            color: #6f4e00;
+            border: 1px solid #ffd54f;
+        }
 
-        .dimmed { opacity: 0.5; }
-        .dimmed .score-badge { visibility: hidden; }
+        .badge-silver {
+            background-color: #e0e0e0;
+            color: #424242;
+            border: 1px solid #bdbdbd;
+        }
+
+        .badge-bronze {
+            background-color: #ffccbc;
+            color: #bf360c;
+            border: 1px solid #ffab91;
+        }
+
+        .badge-normal {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #90caf9;
+        }
+
+        .dimmed {
+            opacity: 0.5;
+        }
+
+        .dimmed .score-badge {
+            visibility: hidden;
+        }
 
         @media print {
             @page {
@@ -589,7 +696,9 @@
                 display: none !important;
             }
 
-            html, body, .right-panel {
+            html,
+            body,
+            .right-panel {
                 width: 100%;
                 height: auto !important;
                 margin: 0 !important;
@@ -619,7 +728,6 @@
                 page-break-before: always !important;
             }
 
-            /* --- 新增：列印時隱藏資格不符隊伍邏輯 --- */
             body.print-hide-ineligible .school-block.ineligible-block {
                 display: none !important;
             }
@@ -644,32 +752,24 @@
         }
     </style>
 
-<style>
-/* Remove spinners in Chrome, Edge, Safari, Opera */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-  margin: 0 !important;
-}
+    <style>
+        /* Remove spinners in Chrome, Edge, Safari, Opera */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+        }
 
-/* Remove spinners in Firefox */
-input[type="number"] {
-  -moz-appearance: textfield !important;
-  appearance: textfield !important;
-}
-
-/* Fallback generic rule (higher specificity) */
-input[type="number"][class]::-webkit-outer-spin-button,
-input[type="number"][class]::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-}
-</style>
+        /* Remove spinners in Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield !important;
+            appearance: textfield !important;
+        }
+    </style>
 </head>
 
 <body>
     <div class="left-panel">
-        <div class="panel-title">團體獎設定</div>
-        
         <div class="scheme-selector">
             <button class="scheme-btn active" onclick="switchScheme(1)" id="btn_scheme_1">方案 1</button>
             <button class="scheme-btn" onclick="switchScheme(2)" id="btn_scheme_2">方案 2</button>
@@ -679,21 +779,28 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
         <div class="config-box">
             <div style="font-weight:bold;margin-bottom:5px;">門檻與名次分數</div>
+
             <div class="form-row">
-                <label>最少人數：</label>
-                <input type="number" id="cfg_threshold" value="3" onchange="onConfigChange()" />
+                <label style="width:auto;">最少人數：</label>
+                <input type="number" id="cfg_threshold" value="3" onchange="onConfigChange()"
+                    style="width:50px; margin-right:15px;" />
+
+                <input type="checkbox" id="cfg_enable_part_score" checked onchange="onConfigChange()" title="是否計算參與分" />
+                <label for="cfg_enable_part_score" style="width:auto; cursor:pointer;">參與分/人：</label>
+                <input type="number" id="cfg_part_weight" value="1" step="0.1" onchange="onConfigChange()"
+                    style="width:50px;" />
             </div>
-            
+
             <div class="score-grid" id="scoreInputsContainer">
-                </div>
+            </div>
         </div>
 
         <div class="config-box">
             <div style="font-weight:bold;margin-bottom:5px;">計算模式</div>
             <div class="form-row">
                 <select id="cfg_mode" onchange="toggleMode(); onConfigChange();" style="width:100%">
-                    <option value="all">全校總分 (參與分 = 總人數)</option>
-                    <option value="topX">只算前 X 名 (參與分可選)</option>
+                    <option value="all">全校總分</option>
+                    <option value="topX">只算前 X 名</option>
                 </select>
             </div>
             <div id="topX_opts" style="display:none; padding-left:5px; margin-top:5px; font-size:12px;">
@@ -701,17 +808,13 @@ input[type="number"][class]::-webkit-inner-spin-button {
                     <label style="width:70px">取前幾名</label>
                     <input type="number" id="cfg_topX" value="3" onchange="onConfigChange()" />
                 </div>
-                <div style="margin-top:4px">
-                    <input type="checkbox" id="cfg_inc_part" checked onchange="onConfigChange()" />
-                    <label for="cfg_inc_part" style="width:auto; display:inline;">Top X 模式下仍加總參與分</label>
-                </div>
             </div>
         </div>
 
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
             <div class="panel-title" style="font-size:14px; border:none; margin:0;">貼上成績資料</div>
             <div class="input-actions">
-                <button class="clear-all-btn" onclick="clearCurrentScheme()">一鍵清空 (當前方案)</button>
+                <button class="clear-all-btn" onclick="clearCurrentScheme()">重置預設 (當前方案)</button>
             </div>
         </div>
 
@@ -720,8 +823,10 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
     <div class="right-panel">
         <div class="preview-actions">
-            <label style="display:flex; align-items:center; color:#fff; font-size:13px; margin-right:12px; cursor:pointer; user-select:none;">
-                <input type="checkbox" id="chk_print_filter" onchange="togglePrintFilter()" style="margin-right:6px; cursor:pointer;">
+            <label
+                style="display:flex; align-items:center; color:#fff; font-size:13px; margin-right:12px; cursor:pointer; user-select:none;">
+                <input type="checkbox" id="chk_print_filter" onchange="togglePrintFilter()"
+                    style="margin-right:6px; cursor:pointer;">
                 列印時隱藏資格不符
             </label>
             <button class="print-btn" onclick="window.print()" title="列印">列印</button>
@@ -749,7 +854,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
                         <th width="40%">學校</th>
                         <th width="20%">總分</th>
                         <th width="15%">名次分</th>
-                        <th width="20%">參與分</th>
+                        <th width="20%" id="theadPart">參與分</th>
                     </tr>
                 </thead>
 
@@ -769,58 +874,114 @@ input[type="number"][class]::-webkit-inner-spin-button {
     </div>
 
     <script>
-        const STORAGE_KEY = 'teamrank_pro_v2';
+        const STORAGE_KEY = 'teamrank_pro_v7_final_float'; // 更新版本號至 v7 (支援小數)
         const container = document.getElementById('inputContainer');
-        
+
         // Data Model
         let appData = {
             activeSchemeId: 1,
             schemes: {}
         };
 
-        // Init 16 score inputs
         function initScoreInputs() {
             const grid = document.getElementById('scoreInputsContainer');
             let html = '';
-            // Default values for common ranks
-            const defaultScores = {1:20, 2:13, 3:8, 4:5, 5:5, 6:5, 7:5, 8:5};
-            
-            for(let i=1; i<=16; i++) {
+            const defaultScores = { 1: 20, 2: 13, 3: 8, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5 };
+
+            for (let i = 1; i <= 16; i++) {
+                let style = '';
+                if (i === 1) style = 'background:#ffe082; border-color:#ffd54f;';
+                else if (i === 2) style = 'background:#e0e0e0; border-color:#bdbdbd;';
+                else if (i === 3) style = 'background:#ffccbc; border-color:#ffab91;';
+                else style = 'background:#e3f2fd; border-color:#90caf9;';
+
+                // --- 修改：增加 step="0.1" 以支援小數輸入 ---
                 html += `
-                <div class="score-item">
+                <div class="score-item" style="${style}" onclick="document.getElementById('p${i}').focus()">
                     <label>第 ${i} 名</label>
-                    <input type="number" id="p${i}" value="${defaultScores[i]||0}" onchange="onConfigChange()" />
+                    <input type="number" 
+                           id="p${i}" 
+                           class="rank-score-input"
+                           value="${defaultScores[i] || 0}" 
+                           step="0.1"
+                           onchange="onConfigChange()" 
+                           onfocus="this.select()"
+                           onkeydown="handleScoreNav(event, ${i})"
+                    />
                 </div>`;
             }
+
+            // --- 修改：增加 step="0.1" ---
+            html += `
+            <div class="score-item" onclick="document.getElementById('p_others').focus()">
+                <label>其他</label>
+                <input type="number" 
+                       id="p_others" 
+                       class="rank-score-input"
+                       value="0" 
+                       step="0.1"
+                       onchange="onConfigChange()" 
+                       onfocus="this.select()"
+                />
+            </div>`;
+
             grid.innerHTML = html;
         }
 
-        // --- Core Functions ---
+        // --- Navigation Logic (With Protection) ---
+        function handleScoreNav(e, idx) {
+            const total = 16;
+            const cols = 8;
+            let target = null;
+            const navKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+            if (navKeys.includes(e.key)) {
+                e.preventDefault();
+
+                if (e.key === 'ArrowRight') {
+                    if (idx < total) target = idx + 1;
+                } else if (e.key === 'ArrowLeft') {
+                    if (idx > 1) target = idx - 1;
+                } else if (e.key === 'ArrowDown') {
+                    if (idx + cols <= total) target = idx + cols;
+                } else if (e.key === 'ArrowUp') {
+                    if (idx - cols >= 1) target = idx - cols;
+                }
+
+                if (target !== null) {
+                    const el = document.getElementById('p' + target);
+                    if (el) {
+                        el.focus();
+                        setTimeout(() => el.select(), 0);
+                    }
+                }
+            }
+        }
 
         function getEmptyScheme() {
-            // Default settings for a new scheme
             return {
                 threshold: 3,
+                enablePart: true,
+                partWeight: 1,
+                scoreOthers: 0,
                 mode: 'all',
                 topX: 3,
-                incPart: true,
-                scores: { // 1-16
-                    1:20, 2:13, 3:8, 4:5, 5:5, 6:5, 7:5, 8:5,
-                    9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0, 16:0
+                scores: {
+                    1: 20, 2: 13, 3: 8, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5,
+                    9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0
                 },
-                frames: [ {text:'', weight: 1} ]
+                frames: [{ text: '', weight: 1 }]
             };
         }
 
         function loadAllData() {
-            initScoreInputs(); // Draw HTML first
+            initScoreInputs();
             const raw = localStorage.getItem(STORAGE_KEY);
-            if(raw) {
+            if (raw) {
                 try {
                     appData = JSON.parse(raw);
-                    // Legacy migration or empty check
-                    if(!appData.schemes) appData = { activeSchemeId:1, schemes:{} };
-                } catch(e) {
+                    if (!appData.schemes) appData = { activeSchemeId: 1, schemes: {} };
+                } catch (e) {
                     console.error("Load failed", e);
                     appData = { activeSchemeId: 1, schemes: {} };
                 }
@@ -828,35 +989,39 @@ input[type="number"][class]::-webkit-inner-spin-button {
                 appData = { activeSchemeId: 1, schemes: {} };
             }
 
-            // Ensure schemes 1-4 exist
-            for(let i=1; i<=4; i++) {
-                if(!appData.schemes[i]) appData.schemes[i] = getEmptyScheme();
+            for (let i = 1; i <= 4; i++) {
+                if (!appData.schemes[i]) appData.schemes[i] = getEmptyScheme();
             }
 
-            // Load UI for active scheme
             switchScheme(appData.activeSchemeId || 1, false);
         }
 
         function saveData() {
-            // Save currently active UI state back to object before writing to disk
             updateSchemeDataFromUI(appData.activeSchemeId);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
         }
 
         function updateSchemeDataFromUI(schemeId) {
             const scheme = appData.schemes[schemeId];
-            if(!scheme) return;
+            if (!scheme) return;
 
             scheme.threshold = parseInt(document.getElementById('cfg_threshold').value) || 3;
+
+            scheme.enablePart = document.getElementById('cfg_enable_part_score').checked;
+            scheme.partWeight = parseFloat(document.getElementById('cfg_part_weight').value);
+            if (isNaN(scheme.partWeight)) scheme.partWeight = 1;
+
+            // --- 修改：使用 parseFloat 支援小數 ---
+            scheme.scoreOthers = parseFloat(document.getElementById('p_others').value) || 0;
+
             scheme.mode = document.getElementById('cfg_mode').value;
             scheme.topX = parseInt(document.getElementById('cfg_topX').value) || 3;
-            scheme.incPart = document.getElementById('cfg_inc_part').checked;
 
-            for(let i=1; i<=16; i++) {
-                scheme.scores[i] = parseInt(document.getElementById('p'+i).value) || 0;
+            for (let i = 1; i <= 16; i++) {
+                // --- 修改：使用 parseFloat 支援小數 ---
+                scheme.scores[i] = parseFloat(document.getElementById('p' + i).value) || 0;
             }
 
-            // Collect frames
             const frameEls = Array.from(container.querySelectorAll('.input-frame'));
             scheme.frames = frameEls.map(f => {
                 return {
@@ -864,40 +1029,41 @@ input[type="number"][class]::-webkit-inner-spin-button {
                     weight: f._weight || 1
                 };
             });
-            // Cleanup trailing empty frames
-            while(scheme.frames.length > 0 && scheme.frames[scheme.frames.length-1].text.trim() === '') {
+            while (scheme.frames.length > 0 && scheme.frames[scheme.frames.length - 1].text.trim() === '') {
                 scheme.frames.pop();
             }
-            if(scheme.frames.length === 0) scheme.frames.push({text:'', weight:1});
+            if (scheme.frames.length === 0) scheme.frames.push({ text: '', weight: 1 });
         }
 
         function switchScheme(id, doSave = true) {
-            if(doSave) saveData(); // Save previous state
+            if (doSave) saveData();
 
             appData.activeSchemeId = id;
             const scheme = appData.schemes[id];
 
-            // Update Tabs
-            for(let i=1; i<=4; i++) {
-                const btn = document.getElementById('btn_scheme_'+i);
-                if(i === id) btn.classList.add('active');
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById('btn_scheme_' + i);
+                if (i === id) btn.classList.add('active');
                 else btn.classList.remove('active');
             }
 
-            // Restore Config UI
             document.getElementById('cfg_threshold').value = scheme.threshold;
+
+            document.getElementById('cfg_enable_part_score').checked = (scheme.enablePart !== undefined) ? scheme.enablePart : true;
+            document.getElementById('cfg_part_weight').value = (scheme.partWeight !== undefined) ? scheme.partWeight : 1;
+
+            document.getElementById('p_others').value = (scheme.scoreOthers !== undefined) ? scheme.scoreOthers : 0;
+
             document.getElementById('cfg_mode').value = scheme.mode;
             document.getElementById('cfg_topX').value = scheme.topX;
-            document.getElementById('cfg_inc_part').checked = scheme.incPart;
             toggleMode();
 
-            for(let i=1; i<=16; i++) {
-                document.getElementById('p'+i).value = scheme.scores[i] !== undefined ? scheme.scores[i] : 0;
+            for (let i = 1; i <= 16; i++) {
+                document.getElementById('p' + i).value = scheme.scores[i] !== undefined ? scheme.scores[i] : 0;
             }
 
-            // Restore Frames
             container.innerHTML = '';
-            if(scheme.frames && scheme.frames.length > 0) {
+            if (scheme.frames && scheme.frames.length > 0) {
                 scheme.frames.forEach(f => {
                     addInputFrame(f.text, f.weight, null, true);
                 });
@@ -915,23 +1081,35 @@ input[type="number"][class]::-webkit-inner-spin-button {
         }
 
         function clearCurrentScheme() {
-            if(!confirm(`確定要清空「方案 ${appData.activeSchemeId}」的所有內容並還原係數嗎？`)) return;
-            
-            // Reset frames
-            container.innerHTML = '';
-            addInputFrame('', 1, null, false); // weight reset to 1
-            
-            // Note: We deliberately do not reset scores/thresholds, just the data & weights.
-            saveData();
-            recalc();
-        }
+            if (!confirm(`確定要將「方案 ${appData.activeSchemeId}」重置為預設值嗎？\n這將清空文字並恢復預設分數。`)) return;
 
-        // --- Frame Logic ---
+            appData.schemes[appData.activeSchemeId] = getEmptyScheme();
+            switchScheme(appData.activeSchemeId, false);
+            saveData();
+        }
 
         function makeFrameElement(content = '', weight = 1, layerIndex = null) {
             const wrap = document.createElement('div');
             wrap.className = 'input-frame';
-            wrap._weight = weight; // Store weight on DOM
+            wrap._weight = weight;
+
+            const ta = document.createElement('textarea');
+            ta.className = 'data-frame';
+            ta.value = content || '';
+            ta.placeholder = "請貼上成績...\n1. 比賽名稱\n2. 組別\n3. 日期\n4. 姓名 學校";
+
+            const updateBtnVisuals = (weightRow) => {
+                const hasText = ta.value.trim().length > 0;
+                const btns = weightRow.querySelectorAll('.weight-btn');
+                btns.forEach(b => {
+                    const val = parseFloat(b.dataset.val);
+                    if (hasText && wrap._weight === val) {
+                        b.classList.add('active');
+                    } else {
+                        b.classList.remove('active');
+                    }
+                });
+            };
 
             const controls = document.createElement('div');
             controls.className = 'frame-controls';
@@ -957,7 +1135,9 @@ input[type="number"][class]::-webkit-inner-spin-button {
             clearBtn.className = 'frame-btn';
             clearBtn.innerText = '清空';
             clearBtn.onclick = () => {
-                wrap.querySelector('textarea').value = '';
+                ta.value = '';
+                const wRow = wrap.querySelector('.frame-weight-row');
+                updateBtnVisuals(wRow);
                 onFrameInput();
             };
 
@@ -966,7 +1146,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
             const weightRow = document.createElement('div');
             weightRow.className = 'frame-weight-row';
-            
+
             const wLabel = document.createElement('span');
             wLabel.className = 'weight-label';
             wLabel.innerText = '係數:';
@@ -974,27 +1154,28 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
             [0.5, 0.75, 1].forEach(val => {
                 const btn = document.createElement('div');
-                btn.className = 'weight-btn' + (weight === val ? ' active' : '');
+                btn.className = 'weight-btn';
+                btn.dataset.val = val;
                 btn.innerText = val === 1 ? '1.0' : val;
+
                 btn.onclick = () => {
                     wrap._weight = val;
-                    // update siblings
-                    Array.from(weightRow.querySelectorAll('.weight-btn')).forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                    updateBtnVisuals(weightRow);
                     saveData();
                     recalc();
                 };
                 weightRow.appendChild(btn);
             });
 
+            ta.addEventListener('input', () => {
+                updateBtnVisuals(weightRow);
+                onFrameInput();
+            });
+
+            updateBtnVisuals(weightRow);
+
             controls.appendChild(headRow);
             controls.appendChild(weightRow);
-
-            const ta = document.createElement('textarea');
-            ta.className = 'data-frame';
-            ta.value = content || '';
-            ta.placeholder = "請貼上成績...\n1. 比賽名稱\n2. 組別\n3. 日期\n4. 姓名 學校";
-            ta.addEventListener('input', onFrameInput);
 
             wrap.appendChild(controls);
             wrap.appendChild(ta);
@@ -1005,7 +1186,6 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
             return wrap;
         }
-
         function addInputFrame(content = '', weight = 1, insertAt = null, preventSave = false) {
             const frames = container.querySelectorAll('.input-frame');
             const el = makeFrameElement(content, weight, frames.length + 1);
@@ -1025,7 +1205,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
         function ensureTrailingEmptyFrame() {
             const frames = container.querySelectorAll('.input-frame');
             if (frames.length === 0) {
-                addInputFrame('', 1, null, true); // Don't trigger infinite loop
+                addInputFrame('', 1, null, true);
                 return;
             }
             const last = frames[frames.length - 1];
@@ -1049,21 +1229,8 @@ input[type="number"][class]::-webkit-inner-spin-button {
                     const lines = txt.split('\n').map(l => l.trim()).filter(l => l !== '');
                     const group = lines[1] || '';
                     if (f._groupName) f._groupName.innerText = group;
-                } catch (err) {}
+                } catch (err) { }
             });
-        }
-
-        function moveFrame(frameEl, dir) {
-            const frames = Array.from(container.querySelectorAll('.input-frame'));
-            const idx = frames.indexOf(frameEl);
-            if (idx === -1) return;
-            const newIdx = idx + dir;
-            if (newIdx < 0 || newIdx >= frames.length) return;
-            if (dir === -1) container.insertBefore(frameEl, frames[newIdx]);
-            else container.insertBefore(frames[newIdx], frameEl);
-            refreshLayerLabels();
-            saveData();
-            recalc();
         }
 
         function toggleMode() {
@@ -1073,47 +1240,88 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
         function togglePrintFilter() {
             const chk = document.getElementById('chk_print_filter');
-            if(chk.checked) {
+            if (chk.checked) {
                 document.body.classList.add('print-hide-ineligible');
             } else {
                 document.body.classList.remove('print-hide-ineligible');
             }
         }
 
-        // --- Calculation ---
-
         function recalc() {
             const threshold = parseInt(document.getElementById('cfg_threshold').value) || 3;
+            const enablePart = document.getElementById('cfg_enable_part_score').checked;
+            const partWeight = parseFloat(document.getElementById('cfg_part_weight').value) || 0;
+            // --- 修改：parseFloat ---
+            const scoreOthers = parseFloat(document.getElementById('p_others').value) || 0;
+
             const mode = document.getElementById('cfg_mode').value;
             const topX = parseInt(document.getElementById('cfg_topX').value) || 3;
-            const incPart = document.getElementById('cfg_inc_part').checked;
 
-            // Load scores 1-16
             const pts = {};
-            for(let i=1; i<=16; i++) {
-                pts[i] = parseInt(document.getElementById('p'+i).value) || 0;
+            for (let i = 1; i <= 16; i++) {
+                // --- 修改：parseFloat ---
+                pts[i] = parseFloat(document.getElementById('p' + i).value) || 0;
             }
 
-            // Rules Text
-            let rules = `【計分】 冠軍${pts[1]} / 亞軍${pts[2]} / 季軍${pts[3]} (其他名次詳見設定)。 `;
+            // --- Rules Description (Auto Merge + Exact Formula) ---
+            let scoreParts = [];
+            let r = 1;
+            while (r <= 16) {
+                let end = r;
+                while (end < 16 && pts[end + 1] === pts[r]) {
+                    end++;
+                }
+
+                let scoreVal = pts[r];
+                if (r <= 3 || scoreVal > 0) {
+                    let label = "";
+                    if (r === end) {
+                        if (r === 1) label = "冠軍";
+                        else if (r === 2) label = "亞軍";
+                        else if (r === 3) label = "季軍";
+                        else label = `第${r}名`;
+                    } else {
+                        label = `${r}-${end}名`;
+                    }
+                    scoreParts.push(`${label}${scoreVal}分`);
+                }
+                r = end + 1;
+            }
+
+            let rules = `【計分】 ${scoreParts.join(" / ")} (17名以後:${scoreOthers}分)。 `;
             rules += `需滿 ${threshold} 人。`;
-            if (mode === 'all') rules += ` (總分 = 所有名次權重分 + 參與人數)`;
-            else rules += ` (總分 = 前${topX}名成績 + ${incPart ? '參與人數' : '0'})`;
+
+            let formulaText = "";
+            if (mode === 'all') {
+                formulaText = "所有名次權重分總和";
+            } else {
+                formulaText = `前 ${topX} 名最優成績總和`;
+            }
+
+            if (enablePart) formulaText += ` + 參與分 (${partWeight}/人)`;
+
+            rules += ` (總分 = ${formulaText})`;
 
             const tfootRuleEl = document.getElementById('tfootRules');
             if (tfootRuleEl) tfootRuleEl.innerText = rules;
 
+            // --- 更新表頭 (參與分/參與人數) ---
+            const thPart = document.getElementById('theadPart');
+            if (thPart) {
+                thPart.innerText = enablePart ? "參與分" : "參與人數";
+            }
+            // -------------------------------------
+
             const frames = Array.from(container.querySelectorAll('.input-frame'));
-            
-            // Priority for sorting students with same points (based on frame order)
-            const categoryPriority = {}; 
+
+            const categoryPriority = {};
             frames.forEach((f, idx) => {
                 const t = f._textarea.value.trim();
                 if (!t) return;
                 const lines = t.split('\n').map(l => l.trim()).filter(l => l !== '');
                 if (lines.length < 2) return;
                 const cat = lines[1];
-                if (cat) categoryPriority[cat] = idx + 1; // Lower index = Higher priority
+                if (cat) categoryPriority[cat] = idx + 1;
             });
 
             const schools = {};
@@ -1122,8 +1330,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
             frames.forEach(f => {
                 const txt = f._textarea.value.trim();
-                const weight = f._weight || 1; // Get frame coefficient
-                
+                const weight = f._weight || 1;
                 if (!txt) return;
                 const lines = txt.split('\n').map(l => l.trim()).filter(l => l);
                 if (lines.length < 4) return;
@@ -1143,20 +1350,15 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
                     if (!schools[sch]) schools[sch] = { name: sch, students: [], uniqueParts: new Set() };
 
-                    // Calculate Points with Coefficient
-                    let rawP = pts[rank] || 0;
-                    let finalP = rawP * weight; // Apply coefficient!
+                    let rawP = (pts[rank] !== undefined) ? pts[rank] : scoreOthers;
+                    let finalP = rawP * weight;
 
-                    // Round logic? Usually points can be decimal. 
-                    // To keep display clean, we might keep decimals or not.
-                    // JS floats are fine.
-
-                    schools[sch].students.push({ 
-                        name, 
-                        cat, 
-                        rank, 
-                        p: finalP, 
-                        catPriority: categoryPriority[cat] || 999 
+                    schools[sch].students.push({
+                        name,
+                        cat,
+                        rank,
+                        p: finalP,
+                        catPriority: categoryPriority[cat] || 999
                     });
                     schools[sch].uniqueParts.add(name);
                 }
@@ -1175,7 +1377,6 @@ input[type="number"][class]::-webkit-inner-spin-button {
             const dateStr = uniqueDates.size > 0 ? Array.from(uniqueDates).join(' / ') : '--';
             theadDate.innerText = "日期：" + dateStr;
 
-            // Set Title for Print
             let fileTitle = (theadTitle.innerText || '學校團體獎').replace(/[\/\\:?*"<>|]/g, '_').trim();
             document.title = fileTitle;
 
@@ -1187,8 +1388,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
             const rankList = Object.values(schools).map(s => {
                 const partCount = s.uniqueParts.size;
                 const eligible = partCount >= threshold;
-                
-                // Sort students: High Points > Low Rank > Cat Priority > Name
+
                 s.students.sort((a, b) => {
                     if (b.p !== a.p) return b.p - a.p;
                     if (a.rank !== b.rank) return a.rank - b.rank;
@@ -1198,24 +1398,24 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
                 let scoreList = (mode === 'all') ? s.students : s.students.slice(0, topX);
                 const rankScore = scoreList.reduce((acc, cur) => acc + cur.p, 0);
-                
-                // Participation Score usually is not weighted by coefficient (headcount is headcount)
-                // Unless specified otherwise. Standard is +1 per head.
-                let partScore = (mode === 'all' || incPart) ? partCount : 0;
-                
+
+                // Calculation Logic: Only enablePart matters
+                let partScore = 0;
+                if (enablePart) {
+                    partScore = partCount * partWeight;
+                }
+
                 const totalScore = rankScore + partScore;
                 const bestRanks = s.students.map(st => st.rank).sort((a, b) => a - b);
-                
+
                 return { ...s, eligible, totalScore, rankScore, partScore, partCount, usedStudents: scoreList, bestRanks };
             });
 
-            // Sort Schools
             rankList.sort((a, b) => {
                 if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
                 if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
                 if (b.rankScore !== a.rankScore) return b.rankScore - a.rankScore;
                 if (b.partScore !== a.partScore) return b.partScore - a.partScore;
-                // Tie breaker: compare best ranks
                 const len = Math.max(a.bestRanks.length, b.bestRanks.length);
                 for (let k = 0; k < len; k++) {
                     const ra = a.bestRanks[k] || 999;
@@ -1244,12 +1444,16 @@ input[type="number"][class]::-webkit-inner-spin-button {
 
                 const tb = document.createElement('tbody');
                 tb.className = 'school-block';
-                
-                // 新增：如果資格不符，加上此 class 以便列印控制
                 if (!sch.eligible) tb.classList.add('ineligible-block');
 
-                // Format display scores (handle decimals)
-                const fmt = (n) => Number.isInteger(n) ? n : n.toFixed(2).replace(/\.00$/, '');
+                const fmt = (n) => Number.isInteger(n) ? n : n.toFixed(1).replace(/\.0$/, '');
+
+                let partDisplayStr = "";
+                if (enablePart) {
+                    partDisplayStr = `${fmt(sch.partScore)} (${sch.partCount}人)`;
+                } else {
+                    partDisplayStr = `${sch.partCount}人`;
+                }
 
                 const trTop = document.createElement('tr');
                 trTop.className = trClass;
@@ -1266,7 +1470,7 @@ input[type="number"][class]::-webkit-inner-spin-button {
                     </td>
                     <td><div class="total-score">${fmt(sch.totalScore)}</div></td>
                     <td><div class="score-val">${fmt(sch.rankScore)}</div></td>
-                    <td><div class="score-val">${sch.partScore} (${sch.partCount}人)</div></td>
+                    <td><div class="score-val">${partDisplayStr}</div></td>
                 `;
 
                 const trDetail = document.createElement('tr');
@@ -1278,9 +1482,9 @@ input[type="number"][class]::-webkit-inner-spin-button {
                     if (stu.rank === 1) badgeClass = 'badge-gold';
                     else if (stu.rank === 2) badgeClass = 'badge-silver';
                     else if (stu.rank === 3) badgeClass = 'badge-bronze';
-                    
+
                     const scoreBadge = stu.p > 0 ? `<span class="score-badge ${badgeClass}">+${fmt(stu.p)}</span>` : '<span style="width:16px;"></span>';
-                    
+
                     return `
                     <div class="student-cell ${cssClass}">
                         <div class="st-name">${escapeHtml(stu.name)}</div>
@@ -1312,19 +1516,15 @@ input[type="number"][class]::-webkit-inner-spin-button {
             const sheet = document.getElementById('sheet');
             const pageHeight = 1050; // Approx px height for A4 minus margins
             let currentH = 0;
-            
-            // Only calc height for visible blocks
+
             const blocks = Array.from(document.querySelectorAll('tbody.school-block'));
-            
-            // Check if we are in hidden mode
             const isHiddenMode = document.body.classList.contains('print-hide-ineligible');
 
             blocks.forEach(tb => {
-                // Skip if hidden
                 if (isHiddenMode && tb.classList.contains('ineligible-block')) return;
 
                 const h = tb.getBoundingClientRect().height;
-                if(currentH + h > pageHeight) {
+                if (currentH + h > pageHeight) {
                     tb.classList.add('page-break-before');
                     currentH = h;
                 } else {
@@ -1334,11 +1534,12 @@ input[type="number"][class]::-webkit-inner-spin-button {
         }
 
         window.onload = loadAllData;
-        
-        window.onbeforeprint = () => { 
-            recalc(); 
-            preparePrintAvoidSplit(); 
+
+        window.onbeforeprint = () => {
+            recalc();
+            preparePrintAvoidSplit();
         };
     </script>
 </body>
+
 </html>
