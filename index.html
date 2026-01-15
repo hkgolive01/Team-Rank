@@ -22,7 +22,6 @@
 
             --header-height: 0mm;
             --footer-height: 20mm;
-            /* 稍微增加頁尾高度以容納多行文字 */
             --a4-side-margin: 4mm;
             --header-row: calc(var(--header-height) / 2);
         }
@@ -243,6 +242,11 @@
             justify-content: space-between;
         }
 
+        .frame-actions {
+            display: flex;
+            gap: 3px;
+        }
+
         .frame-weight-row {
             display: flex;
             align-items: center;
@@ -282,6 +286,8 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            flex: 1;
+            overflow: hidden;
         }
 
         .layer-badge {
@@ -295,6 +301,7 @@
             min-width: 35px;
             text-align: center;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .group-name {
@@ -303,7 +310,6 @@
             font-size: 12px;
             margin-left: 2px;
             white-space: nowrap;
-            max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -315,6 +321,13 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .frame-btn:hover {
+            background-color: #eee;
         }
 
         .clear-all-btn {
@@ -755,14 +768,12 @@
     </style>
 
     <style>
-        /* Remove spinners in Chrome, Edge, Safari, Opera */
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none !important;
             margin: 0 !important;
         }
 
-        /* Remove spinners in Firefox */
         input[type="number"] {
             -moz-appearance: textfield !important;
             appearance: textfield !important;
@@ -1129,6 +1140,37 @@
             left.appendChild(layerBadge);
             left.appendChild(groupName);
 
+            // --- Action Buttons (Up/Down/Clear) ---
+            const actions = document.createElement('div');
+            actions.className = 'frame-actions';
+
+            // Up Button
+            const btnUp = document.createElement('button');
+            btnUp.className = 'frame-btn';
+            btnUp.innerHTML = '▲';
+            btnUp.title = '向上移動';
+            btnUp.onclick = () => {
+                const prev = wrap.previousElementSibling;
+                if (prev) {
+                    wrap.parentNode.insertBefore(wrap, prev);
+                    onFrameInput();
+                }
+            };
+            
+            // Down Button
+            const btnDown = document.createElement('button');
+            btnDown.className = 'frame-btn';
+            btnDown.innerHTML = '▼';
+            btnDown.title = '向下移動';
+            btnDown.onclick = () => {
+                const next = wrap.nextElementSibling;
+                if (next) {
+                    // Insert before the element *after* next (effectively swapping)
+                    wrap.parentNode.insertBefore(wrap, next.nextElementSibling);
+                    onFrameInput();
+                }
+            };
+
             const clearBtn = document.createElement('button');
             clearBtn.className = 'frame-btn';
             clearBtn.innerText = '清空';
@@ -1139,8 +1181,12 @@
                 onFrameInput();
             };
 
+            actions.appendChild(btnUp);
+            actions.appendChild(btnDown);
+            actions.appendChild(clearBtn);
+
             headRow.appendChild(left);
-            headRow.appendChild(clearBtn);
+            headRow.appendChild(actions);
 
             const weightRow = document.createElement('div');
             weightRow.className = 'frame-weight-row';
