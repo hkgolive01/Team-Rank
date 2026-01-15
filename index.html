@@ -21,7 +21,8 @@
             --bronze-text: #a84300;
 
             --header-height: 0mm;
-            --footer-height: 20mm; /* 稍微增加頁尾高度以容納多行文字 */
+            --footer-height: 20mm;
+            /* 稍微增加頁尾高度以容納多行文字 */
             --a4-side-margin: 4mm;
             --header-row: calc(var(--header-height) / 2);
         }
@@ -124,7 +125,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        
+
         .form-row input[type="checkbox"] {
             transform: scale(1.2);
             margin-right: 6px;
@@ -182,13 +183,13 @@
             color: #333;
             cursor: pointer;
         }
-        
+
         .score-item input.rank-score-input:focus {
             color: #000;
         }
 
         .score-item:has(input:focus) {
-            box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         .input-area {
@@ -428,7 +429,8 @@
             color: #555;
             border-top: 1px solid #ddd;
             background: #fff;
-            line-height: 1.6; /* 增加行高，讓權重顯示更清晰 */
+            line-height: 1.6;
+            /* 增加行高，讓權重顯示更清晰 */
         }
 
         table.result-table td {
@@ -779,21 +781,23 @@
             <button class="scheme-btn" onclick="switchScheme(4)" id="btn_scheme_4">方案 4</button>
         </div>
 
-<div class="config-box">
-    <div style="font-weight:bold;margin-bottom:5px;">門檻與名次分數</div>
-    
-    <div class="form-row">
-        <label style="width:auto;">最少人數：</label>
-        <input type="number" id="cfg_threshold" value="3" onchange="onConfigChange()" style="width:50px; margin-right:15px;" />
-        
-        <input type="checkbox" id="cfg_enable_part_score" checked onchange="onConfigChange()" title="是否計算參與分" />
-        <label for="cfg_enable_part_score" style="width:auto; cursor:pointer;">參與分/人：</label>
-        <input type="number" id="cfg_part_weight" value="1" step="0.1" onchange="onConfigChange()" style="width:50px;" />
-    </div>
-    
-    <div class="score-grid" id="scoreInputsContainer">
+        <div class="config-box">
+            <div style="font-weight:bold;margin-bottom:5px;">門檻與名次分數</div>
+
+            <div class="form-row">
+                <label style="width:auto;">最少人數：</label>
+                <input type="number" id="cfg_threshold" value="3" onchange="onConfigChange()"
+                    style="width:50px; margin-right:15px;" />
+
+                <input type="checkbox" id="cfg_enable_part_score" checked onchange="onConfigChange()" title="是否計算參與分" />
+                <label for="cfg_enable_part_score" style="width:auto; cursor:pointer;">參與分/人：</label>
+                <input type="number" id="cfg_part_weight" value="1" step="0.1" onchange="onConfigChange()"
+                    style="width:50px;" />
+            </div>
+
+            <div class="score-grid" id="scoreInputsContainer">
+            </div>
         </div>
-</div>
 
         <div class="config-box">
             <div style="font-weight:bold;margin-bottom:5px;">計算模式</div>
@@ -1004,7 +1008,7 @@
             if (!scheme) return;
 
             scheme.threshold = parseInt(document.getElementById('cfg_threshold').value) || 3;
-            
+
             scheme.enablePart = document.getElementById('cfg_enable_part_score').checked;
             scheme.partWeight = parseFloat(document.getElementById('cfg_part_weight').value);
             if (isNaN(scheme.partWeight)) scheme.partWeight = 1;
@@ -1047,7 +1051,7 @@
 
             document.getElementById('cfg_enable_part_score').checked = (scheme.enablePart !== undefined) ? scheme.enablePart : true;
             document.getElementById('cfg_part_weight').value = (scheme.partWeight !== undefined) ? scheme.partWeight : 1;
-            
+
             document.getElementById('p_others').value = (scheme.scoreOthers !== undefined) ? scheme.scoreOthers : 0;
 
             document.getElementById('cfg_mode').value = scheme.mode;
@@ -1078,7 +1082,7 @@
 
         function clearCurrentScheme() {
             if (!confirm(`確定要將「方案 ${appData.activeSchemeId}」重置為預設值嗎？\n這將清空文字並恢復預設分數。`)) return;
-            
+
             appData.schemes[appData.activeSchemeId] = getEmptyScheme();
             switchScheme(appData.activeSchemeId, false);
             saveData();
@@ -1251,7 +1255,7 @@
 
             const mode = document.getElementById('cfg_mode').value;
             const topX = parseInt(document.getElementById('cfg_topX').value) || 3;
-            
+
             const pts = {};
             for (let i = 1; i <= 16; i++) {
                 pts[i] = parseFloat(document.getElementById('p' + i).value) || 0;
@@ -1291,33 +1295,33 @@
             } else {
                 formulaText = `前 ${topX} 名最優成績總和`;
             }
-            
+
             if (enablePart) formulaText += ` + 參與分 (${partWeight}/人)`;
-            
+
             rules += ` (總分 = ${formulaText})`;
 
             const tfootRuleEl = document.getElementById('tfootRules');
-            
+
             // --- New Logic: Weight Summary (下方加入權重說明) ---
             const frames = Array.from(container.querySelectorAll('.input-frame'));
-            
+
             // Collect groups by weight
             const weightMap = {}; // Key: weight, Value: Set of category names
             frames.forEach(f => {
                 const t = f._textarea.value.trim();
-                if(!t) return;
-                const lines = t.split('\n').map(l=>l.trim()).filter(l=>l);
-                if(lines.length < 2) return;
-                
+                if (!t) return;
+                const lines = t.split('\n').map(l => l.trim()).filter(l => l);
+                if (lines.length < 2) return;
+
                 const cat = lines[1];
                 const w = f._weight || 1;
-                
-                if(!weightMap[w]) weightMap[w] = new Set();
+
+                if (!weightMap[w]) weightMap[w] = new Set();
                 weightMap[w].add(cat);
             });
-            
-            const sortedWeights = Object.keys(weightMap).sort((a,b) => parseFloat(b) - parseFloat(a));
-            
+
+            const sortedWeights = Object.keys(weightMap).sort((a, b) => parseFloat(b) - parseFloat(a));
+
             // 只有當有多種權重時才顯示
             if (sortedWeights.length > 1) {
                 const weightParts = sortedWeights.map(w => {
@@ -1328,10 +1332,10 @@
                 });
                 rules += `<br>【權重】 ${weightParts.join("  ")}`;
             }
-            
+
             // Apply rules to DOM (using innerHTML for <br>)
             if (tfootRuleEl) tfootRuleEl.innerHTML = rules;
-            
+
             // --- Update Headers ---
             const thPart = document.getElementById('theadPart');
             if (thPart) {
@@ -1534,11 +1538,18 @@
             return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
         }
 
-        // --- Print Logic ---
         function preparePrintAvoidSplit() {
             document.querySelectorAll('tbody.page-break-before').forEach(tb => tb.classList.remove('page-break-before'));
-            const sheet = document.getElementById('sheet');
-            const pageHeight = 1050; // Approx px height for A4 minus margins
+
+            const table = document.getElementById('resultTable');
+            const thead = table.querySelector('thead');
+            const tfoot = table.querySelector('tfoot');
+
+            const A4_HEIGHT_PX = 1050;
+            const headerH = thead ? thead.offsetHeight : 0;
+            const footerH = tfoot ? tfoot.offsetHeight : 0;
+            const contentPageHeight = A4_HEIGHT_PX - headerH - footerH - 20;
+
             let currentH = 0;
 
             const blocks = Array.from(document.querySelectorAll('tbody.school-block'));
@@ -1548,7 +1559,7 @@
                 if (isHiddenMode && tb.classList.contains('ineligible-block')) return;
 
                 const h = tb.getBoundingClientRect().height;
-                if (currentH + h > pageHeight) {
+                if (currentH + h > contentPageHeight) {
                     tb.classList.add('page-break-before');
                     currentH = h;
                 } else {
