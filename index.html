@@ -41,7 +41,6 @@
             overflow: hidden;
         }
 
-        /* --- Scheme Selector --- */
         .scheme-selector {
             display: flex;
             gap: 5px;
@@ -53,13 +52,13 @@
 
         .scheme-btn {
             flex: 1;
-            padding: 8px 0;
+            padding: 4px 0;
             border: 1px solid #ccc;
             background: #fff;
             color: #555;
             cursor: pointer;
             border-radius: 4px;
-            font-weight: bold;
+            font-weight: normal;
             font-size: 13px;
             transition: all 0.2s;
         }
@@ -137,7 +136,6 @@
             border: 1px solid #ccc;
         }
 
-        /* --- Score Grid Styles --- */
         .score-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -325,7 +323,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .frame-btn:hover {
             background-color: #eee;
         }
@@ -765,6 +763,24 @@
                 grid-auto-rows: 220px;
             }
         }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
     </style>
 
     <style>
@@ -887,10 +903,9 @@
     </div>
 
     <script>
-        const STORAGE_KEY = 'teamrank_pro_v8_final_weight_sum'; // 更新版本號 v8
+        const STORAGE_KEY = 'teamrank_pro_v8_final_weight_sum'; 
         const container = document.getElementById('inputContainer');
 
-        // Data Model
         let appData = {
             activeSchemeId: 1,
             schemes: {}
@@ -939,7 +954,6 @@
             grid.innerHTML = html;
         }
 
-        // --- Navigation Logic (With Protection) ---
         function handleScoreNav(e, idx) {
             const total = 16;
             const cols = 8;
@@ -1140,11 +1154,9 @@
             left.appendChild(layerBadge);
             left.appendChild(groupName);
 
-            // --- Action Buttons (Up/Down/Clear) ---
             const actions = document.createElement('div');
             actions.className = 'frame-actions';
 
-            // Up Button
             const btnUp = document.createElement('button');
             btnUp.className = 'frame-btn';
             btnUp.innerHTML = '▲';
@@ -1156,8 +1168,7 @@
                     onFrameInput();
                 }
             };
-            
-            // Down Button
+
             const btnDown = document.createElement('button');
             btnDown.className = 'frame-btn';
             btnDown.innerHTML = '▼';
@@ -1165,7 +1176,6 @@
             btnDown.onclick = () => {
                 const next = wrap.nextElementSibling;
                 if (next) {
-                    // Insert before the element *after* next (effectively swapping)
                     wrap.parentNode.insertBefore(wrap, next.nextElementSibling);
                     onFrameInput();
                 }
@@ -1305,7 +1315,6 @@
                 pts[i] = parseFloat(document.getElementById('p' + i).value) || 0;
             }
 
-            // --- Rules Description (Auto Merge + Exact Formula) ---
             let scoreParts = [];
             let r = 1;
             while (r <= 16) {
@@ -1346,11 +1355,9 @@
 
             const tfootRuleEl = document.getElementById('tfootRules');
 
-            // --- New Logic: Weight Summary (下方加入權重說明) ---
             const frames = Array.from(container.querySelectorAll('.input-frame'));
 
-            // Collect groups by weight
-            const weightMap = {}; // Key: weight, Value: Set of category names
+            const weightMap = {};
             frames.forEach(f => {
                 const t = f._textarea.value.trim();
                 if (!t) return;
@@ -1366,21 +1373,17 @@
 
             const sortedWeights = Object.keys(weightMap).sort((a, b) => parseFloat(b) - parseFloat(a));
 
-            // 只有當有多種權重時才顯示
             if (sortedWeights.length > 1) {
                 const weightParts = sortedWeights.map(w => {
                     const cats = Array.from(weightMap[w]).join(",");
-                    // 去除權重小數點後多餘的0 (例如 1.0 -> 1, 0.5 -> 0.5)
                     const displayW = parseFloat(w);
                     return `${displayW}:${cats}`;
                 });
                 rules += `<br>【權重】 ${weightParts.join("  ")}`;
             }
 
-            // Apply rules to DOM (using innerHTML for <br>)
             if (tfootRuleEl) tfootRuleEl.innerHTML = rules;
 
-            // --- Update Headers ---
             const thPart = document.getElementById('theadPart');
             if (thPart) {
                 thPart.innerText = enablePart ? "參與分" : "參與人數";
@@ -1436,7 +1439,6 @@
                 }
             });
 
-            // Update Headers
             const theadTitle = document.getElementById('theadTitle');
             const theadDate = document.getElementById('theadDate');
             if (globalTitle) {
@@ -1456,7 +1458,6 @@
             const existingTbody = table.querySelectorAll('tbody');
             existingTbody.forEach(t => t.remove());
 
-            // Process Schools
             const rankList = Object.values(schools).map(s => {
                 const partCount = s.uniqueParts.size;
                 const eligible = partCount >= threshold;
@@ -1471,7 +1472,6 @@
                 let scoreList = (mode === 'all') ? s.students : s.students.slice(0, topX);
                 const rankScore = scoreList.reduce((acc, cur) => acc + cur.p, 0);
 
-                // Calculation Logic: Only enablePart matters
                 let partScore = 0;
                 if (enablePart) {
                     partScore = partCount * partWeight;
